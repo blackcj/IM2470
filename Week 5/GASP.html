@@ -2,27 +2,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Untitled Document</title>
-<!--CDN links for the latest TweenLite, CSSPlugin, and EasePack-->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+<title>TweenLite Demo</title>
+<!--TweenLite, CSSPlugin, and EasePack-->
+<script src="js/plugins/CSSPlugin.js"></script>
+<script src="js/easing/EasePack.js"></script>
+<script src="js/TweenLite.js"></script>
 
-<!-- Place in the <head>, after the three links -->
 <script type="text/javascript" charset="utf-8">
-	  
   function animate() {
-	TweenLite.to("#easingBox", 10, {backgroundColor:"#ff0000", width:"50%", top:"100px", ease:Power2.easeInOut});  
+	TweenLite.to("#easingBox", 2, {backgroundColor:"#ff0000", width:"50%", top:"100px", ease:Power2.easeInOut});  
   }
 </script>
 </head>
 
 <body>
 
-<div style="background-color:#FFFFFF; margin:2px 80px; height:38px">
-<div id="easingBox" style="background-color: rgb(0, 204, 51); width: 30px; height: 30px; margin: 4px; float: right;"></div>
-<p></p></div>
-</div>
+<div id="easingBox" style="background-color: rgb(0, 204, 51); width: 30px; height: 30px; margin: 4px; float: left;"></div>
+
 <button onClick="animate()">Go</button>
 </body>
 </html>
