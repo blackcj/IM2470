@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Basic HTML Page</title>
@@ -8,9 +9,34 @@
 
 <!-- Place in the <head>, after the three links -->
 <script type="text/javascript" charset="utf-8">
+
+// store the slider in a local variable
+  var $window = $(window),
+      flexslider;
+	  
   $(window).load(function() {
-    $('.flexslider').flexslider();
+    $('.flexslider').flexslider({
+          animation: "slide",
+		  slideshowSpeed: 1000,
+          controlsContainer: ".flex-container"
+    });
   });
+  
+  function gotoLast() {
+	$('.flexslider').flexslider(3); 
+  }
+  
+  function pauseSlides() {
+	$('.flexslider').flexslider("pause");  
+  }
+  
+  function playSlides() {
+	$('.flexslider').flexslider("play");  
+  }
+  
+  // DOCUMENTATION:
+  // https://github.com/woothemes/flexslider
+  
 </script>
 
 </head>
@@ -21,7 +47,11 @@
 <div class="flexslider">
   <ul class="slides">
     <li>
-      <img src="images/slide1.jpg" />
+      <img onClick="" src="images/slide1.jpg" />
+    </li>
+    <li>
+    	<h1>HTML Content</h1>
+        <button onClick="gotoLast();">Last Slide</button>
     </li>
     <li>
       <img src="images/slide2.jpg" />
@@ -31,5 +61,9 @@
     </li>
   </ul>
 </div>
+
+<button onClick="pauseSlides();">pause</button>
+<button onClick="playSlides();">play</button>
+
 </body>
 </html>
