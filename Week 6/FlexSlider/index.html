@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic HTML Page</title>
+<!-- Place somewhere in the <head> of your document -->
+<link rel="stylesheet" href="flexslider.css" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="jquery.flexslider.js"></script>
+
+<!-- Place in the <head>, after the three links -->
+<script type="text/javascript" charset="utf-8">
+
+// store the slider in a local variable
+  //var $window = $(window);
+  var flexslider;
+	  
+  $(window).load(function() {
+    $('.flexslider').flexslider({
+          animation: "slide",
+		  slideshowSpeed: 3000,
+          controlsContainer: ".flex-container"
+    });
+	pauseSlides();
+  });
+  
+  function gotoLast() {
+	$('.flexslider').flexslider(3); 
+  }
+  
+  function gotoSlide(i) {
+	$('.flexslider').flexslider(i); 
+  }
+  
+  function pauseSlides() {
+	$('.flexslider').flexslider("pause");  
+  }
+  
+  function playSlides() {
+	$('.flexslider').flexslider("play");  
+  }
+  
+  // DOCUMENTATION:
+  // https://github.com/woothemes/flexslider
+  
+</script>
+
+</head>
+<body>
+<h1>Welcome</h1>
+<p>Welcome to the most basic html page ever created.</p>
+<!-- Place somewhere in the <body> of your page -->
+<div class="flexslider">
+  <ul class="slides">
+  	<li>
+    	<h1>9 Steps</h1>
+        <div onClick="gotoSlide(1);">Step 1</div>
+        <div onClick="gotoSlide(2);">Step 2</div>
+    </li>
+    <li>
+      <img onClick="" src="images/slide1.jpg" />
+    </li>
+    <li>
+    	<h1>HTML Content</h1>
+        <button onClick="gotoLast();">Last Slide</button>
+    </li>
+    <li>
+      <img src="images/slide2.jpg" />
+    </li>
+    <li>
+      <img src="images/slide3.jpg" />
+    </li>
+  </ul>
+</div>
+
+<button onClick="pauseSlides();">pause</button>
+<button onClick="playSlides();">play</button>
+
+</body>
+</html>

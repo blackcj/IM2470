@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Canvas Tutorial</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<script type="application/javascript">
+
+	var bodies = [];
+	var orbits = [];
+	var colors = [
+		'green',
+		'blue',
+		'red'
+	];
+	var showOrbits = true;
+	var GRAVITY_CONSTANT = 6.673e-11; 
+	var sunX = 0;
+	var sunY = 0;
+	var context;
+	var _width = 300;
+	var _height = 300;
+	var planet = {color:"green", x:0, y:0};
+
+    function draw() {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        context = canvas.getContext("2d");
+		TweenMax.to(planet, 5, {x:300, y:300, onUpdate:loop});
+ 		//setInterval("loop()", 32);
+      }
+    }
+	
+	function loop() {
+		context.clearRect(0, 0, _width, _height);
+		drawPlanet(1);
+	}
+	
+	function drawPlanet(pos) {	
+			
+		var centerX = planet.x;
+		var centerY = planet.y;
+		var radius = 20;
+		
+		context.beginPath();
+		context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+		context.fillStyle = planet.color;
+		context.fill();
+	}
+  </script>
+</head>
+
+<body onload="draw();">
+
+<canvas id="canvas" width="300" height="300"></canvas>
+</body>
+</html>
