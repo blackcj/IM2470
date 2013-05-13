@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TweenLite Demo</title>
+<!--CDN link for the latest TweenMax-->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="code.js" charset="utf-8" ></script>
+
+<style type="text/css">
+#sun {
+    background-color: #f40;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    left: 10px;
+    top: 300px;
+    position: absolute;
+}
+#ground {
+    background-color: #008000;
+    width: 400px;
+    height: 150px;
+    top: 300px;
+    position: absolute;
+}
+#tree {
+    width: 270px;
+    height: 180px;
+    top: 130px;
+    left: 50px;
+    position: absolute;
+}
+
+.daysky {
+	width: 200px;
+	height: 200px;
+  	background-color: #1a82f7;
+
+}
+
+.nightsky {
+	width: 200px;
+	height: 200px;
+	background-color: #2F2727;
+
+}
+
+</style>
+</head>
+
+<body>
+<div id="scene">
+	<div id="sky" class="daysky"></div>
+	<div id="sun"></div>
+</div>
+<button onClick="animate()">Go</button>
+</body>
+</html>
