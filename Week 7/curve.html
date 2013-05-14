@@ -19,31 +19,24 @@
     top: 300px;
     position: absolute;
 }
-#ground {
+#grass {
     background-color: #008000;
     width: 400px;
     height: 150px;
     top: 300px;
     position: absolute;
 }
-#tree {
-    width: 270px;
-    height: 180px;
-    top: 130px;
-    left: 50px;
-    position: absolute;
-}
 
 .daysky {
-	width: 200px;
-	height: 200px;
+	width: 400px;
+	height: 400px;
   	background-color: #1a82f7;
 
 }
 
 .nightsky {
-	width: 200px;
-	height: 200px;
+	width: 400px;
+	height: 400px;
 	background-color: #2F2727;
 
 }
@@ -52,10 +45,12 @@
 </head>
 
 <body>
+<button onClick="animate()">Go</button>
 <div id="scene">
 	<div id="sky" class="daysky"></div>
 	<div id="sun"></div>
+    <div id="grass"></div>
 </div>
-<button onClick="animate()">Go</button>
+
 </body>
 </html>
