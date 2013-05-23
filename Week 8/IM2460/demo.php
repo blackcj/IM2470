@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="problems.css" />
-<title>Basic Logic: PHP Problem Set 1.4</title>
+<title>Saving Form Data to Server</title>
 </head>
 
 <body>
@@ -12,11 +12,14 @@
 <?php
 // http://devzone.zend.com/6/php-101-php-for-the-absolute-beginner/
 // WRITE TO FILE
+// TODO: Use a form to submit a vote. Only write to the file if the form was submitted.
 $file = 'data.txt';
 // Append a new person to the file
-$current .= "Mary Johnson\n";
+$current .= "Mary Johnson\n";	
 // Write the contents back to the file
 file_put_contents($file, $current, FILE_APPEND);
+
+// END WRITE TO FILE
 
 
  
@@ -35,6 +38,7 @@ while( list($line_nums, $line) = each($gb_file) ) {
 
 // var_dump($data);
 
+// Echo out the number of times each person has been voted for
 $maryCount = 0;
 $johnCount = 0;
 foreach ( $data as $candidate ) {
@@ -49,17 +53,6 @@ foreach ( $data as $candidate ) {
 echo $johnCount."<br/>";
 echo $maryCount;
 
-
-/*
-for($i = 0; $i < 50; $i++)
-{
-	if($i % 2 == 0){
-		echo "<div style='font-size:" . $i . "px'>Hello</div>";	
-	}else {
-		echo "<div style='color:blue;font-size:" . $i . "px'>Hello</div>";
-	}
-}
-*/
 
 ?>
 </body>
