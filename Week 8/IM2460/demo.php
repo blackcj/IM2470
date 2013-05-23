@@ -8,6 +8,8 @@
 
 <body>
 <h2>Demo</h2>
+
+<!-- TODO: Create a form that has a drop down selector with 4 candidates. -->
  
 <?php
 // http://devzone.zend.com/6/php-101-php-for-the-absolute-beginner/
@@ -15,10 +17,10 @@
 // TODO: Use a form to submit a vote. Only write to the file if the form was submitted.
 $file = 'data.txt';
 // Append a new person to the file
+// TODO: Replace this with a $_GET['candidate'] passed in from the form
 $current .= "Mary Johnson\n";	
 // Write the contents back to the file
 file_put_contents($file, $current, FILE_APPEND);
-
 // END WRITE TO FILE
 
 
@@ -31,14 +33,14 @@ $data = array();
 // Open file
 $gb_file = file( 'data.txt' );
  
-// Loop through file data
+// Loop through file data and store it in an Array
 while( list($line_nums, $line) = each($gb_file) ) {
     $data[] = $line;
 }
 
 // var_dump($data);
 
-// Echo out the number of times each person has been voted for
+// Count the number of times each person has been voted for
 $maryCount = 0;
 $johnCount = 0;
 foreach ( $data as $candidate ) {
@@ -50,8 +52,10 @@ foreach ( $data as $candidate ) {
 	}
 }
 
-echo $johnCount."<br/>";
-echo $maryCount;
+// Display the results
+// TODO: Use jQuery to display the results as a bar graph.
+echo "John: " . $johnCount."<br/>";
+echo "Mary: " . $maryCount;
 
 
 ?>
