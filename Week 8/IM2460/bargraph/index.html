@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bar Graph</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  // for each result row..
+  $(".extras_result").each(function() {
+    // get the width of the bar from the span html
+    var length = $(this).find("span").html();
+    // Animate the width of the 'p' with a callback function
+    $(this).find("p").animate({'width':length}, 2000, function() {
+      // once the bar animation has finished, fade in the results
+      $(this).find("span").fadeIn(800);
+    });
+  });
+});
+</script>
+<style>
+.extras_table {
+  width:100%;
+}
+.extras_table td, .extras_table th {
+  border:none;
+}
+.extras_table .extras_x-desc {
+  border-top:1px solid #000;
+}
+.extras_table .extras_y-desc {
+  border-right:1px solid #000;
+  padding-right:5px;
+  text-align:right;
+  width:10%;
+}
+/* Sets the max width of the result bar */
+.extras_result {
+  width:100%;
+}
+/* This will serve as the bar, make it look nice with a background image or colour gradient */
+.extras_result p.extras_p {
+  width:0; float:left;
+  background:#006600;
+  background: -moz-linear-gradient(left, #006600, #003300);
+  background: -webkit-gradient(linear, left top, right top, from(#006600), to(#003300));
+  filter: progid:DXImageTransform.Microsoft.Gradient(
+    StartColorStr='#006600', EndColorStr='#003300', GradientType=0);
+  text-align:right;
+}
+/* Position the result data and set default display to none (for the fade in) */
+.extras_result span {
+  position:relative;
+  padding-left:5px;
+  left:40px;
+  display:none;
+}
+/* A class to centre text */
+.extras_x-desc p.extras_centreIt {
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<table cellpadding="0" cellspacing="0" class="extras_table">
+  <tr>
+    <th class="extras_y-desc" scope="row">Result 1</th>
+    <td><div class="extras_result"><p class="extras_p">&nbsp;<span>10%</span></p></div></td>
+  </tr>
+  <tr>
+    <th class="extras_y-desc" scope="row">Result 2</th>
+    <td><div class="extras_result"><p class="extras_p">&nbsp;<span>30%</span></p></div></td>
+  </tr>
+  <tr>
+    <th class="extras_y-desc" scope="row">Result 3</th>
+    <td><div class="extras_result"><p class="extras_p">&nbsp;<span>55%</span></p></div></td>
+  </tr>
+  <tr>
+    <th class="extras_y-desc" scope="row">Result 4</th>
+    <td><div class="extras_result"><p class="extras_p">&nbsp;<span>5%</span></p></div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="extras_x-desc"><p class="extras_centreIt extras_p">Some information about the results</p>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
