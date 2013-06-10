@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Raphael Demo</title>
+<!-- 
+
+Questions:
+- What does the clone function do (utils.js)? When is it necessary to clone an Object? (line 88)
+- What is the purpose of the recursive function? When should they be used? (line 119)
+- Will this work in IE6? IE7? IE8? The iPad?
+- Why are the buttons so big?
+
+Talking Points:
+- These libraries were used in combination to do something that couldn't have been done alone.
+- Brainstorm the uses for an interactive component like this.
+
+-->
+<script type="text/javascript" src="raphael-min.js"></script>
+<script type="text/javascript" src="raphael.free_transform.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.7/TweenMax.min.js"></script>
+<script type="text/javascript" src="util.js"></script>
+
+<style>
+#wrapper {
+    position: relative;
+    padding: 0;
+}
+#wrapper button {
+    position: absolute;
+    top: 0;
+    left: 0;
+	z-index:100; 
+	width:100px; 
+	height:50px
+}
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+    <div id="canvas" style="height: 100%; background-color:#CCC"></div>
+    <button onClick="resetImage();">Reset</button>
+    
+    <!-- TODO: Implement undo button -->
+    <!-- <button onClick="resetImage();">Undo</button> -->
+    
+    <!-- TODO: Allow user to load image from existing URL -->
+    <!-- input text and submit button - should clear paper and re-laod everything -->
+    
+ 	<!-- TODO: Save / Load (Extra Credit) -->
+    <!-- save last state & image url to a flat file so the server can process the image -->
+</div>
+
+<script type="text/javascript">
+	// Raphael Paper used to draw elements to. Equivalent to a 'Canvas' or 'Stage'
+    var paper = Raphael(0, 0, 1024, 728);
+	
+	// Draw a light background so we know the bounding box
+	paper
+        .rect(0, 0, 1024, 728)
+        .attr('fill', '#aaa')
+		.attr('fill-opacity', '0.7');
+	// Variable use to store a reference to the active 'free transform' (ft)
+	var ft;
+	
+	// Array used to store the history of modifications
+	var history = Array();
+	
+	// Rectangle that we will pass into the free transform (in our case an image)
+	var rect;
+	
+	// Add freeTransform with options and callback
+	function addTransform() {
+		ft = paper.freeTransform(rect, { keepRatio: true, size: 30 }, function(ft, events) {
+			var evtString = events.join(', ');
+			if(evtString.indexOf("end") >= 0){
+				// console.log(evtString); // DEBUG code
+				// push ft.attrs into an array deep copy to retain data
+				history.push(clone(ft.attrs));
+			}else if(evtString.indexOf("start") >= 0 && history.length == 0){
+				// Push starting position
+				history.push(clone(ft.attrs));
+			}
+		});
+	}
+	
+	// Load our image assets, first user image then ellipse then photo frame
+	userImage = new Image();
+	userImage.src = "portrait.jpg";
+	userImage.onload = function() {
+		// Add the user image to the paper
+    	rect = paper.image(userImage.src, 325, 225, 320, 240);
+		
+		// Add semi transparent ellipse to the paper showing were the face should be
+		paper
+        .ellipse(485, 345, 60, 75)
+        .attr('fill', '#999')
+		.attr('fill-opacity', '0.2');
+		
+		// Load the photo frame image
+		frameImage = new Image();
+		frameImage.src = "frame.png";
+		frameImage.onload = function() {
+			// Add the frame to the paper
+			paper.image(frameImage.src, 325, 225, 320, 240);
+			
+			// Apply transform AFTER both images have loaded so controls are on top
+			addTransform();
+		}
+	}
+	
+	// Animate the image back to it's original position, recursive function
+	function resetImage()
+	{
+		// Disable free transform
+		ft.unplug();
+		
+		// Take from the top of the array
+		if(history.length > 0){
+			var toAttrs = history.pop();
+			//console.log(toAttrs); // DEBUG code
+			
+			// Stop any existing tweens
+			TweenMax.killAll();
+			if(ft.attrs.translate.x == toAttrs.translate.x && ft.attrs.translate.y == toAttrs.translate.y){
+				TweenMax.to(ft.attrs.scale, 0.3, {x:toAttrs.scale.x, y:toAttrs.scale.y, onUpdate:updateRect, onComplete:resetImage, ease:"Cubic.easeOut"});
+				TweenMax.to(ft.attrs, 0.3, {rotate:toAttrs.rotate, onUpdate:updateRect, ease:"Cubic.easeOut"});
+			} else {
+				TweenMax.to(ft.attrs.translate, 0.3, {x:toAttrs.translate.x, y:toAttrs.translate.y, onUpdate:updateRect, onComplete:resetImage, ease:"Cubic.easeOut"});
+			}
+			
+		}else {
+			// When we are done, add the free transform back to the image.
+			addTransform();	
+		}
+	}
+	
+	// Update transform on every GreenSock update
+	function updateRect()
+	{
+		ft.apply();
+	}
+</script>
+</body>
+</html>
