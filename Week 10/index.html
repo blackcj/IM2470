@@ -59,21 +59,55 @@ Talking Points:
 
 <script type="text/javascript">
 	// Raphael Paper used to draw elements to. Equivalent to a 'Canvas' or 'Stage'
-    var paper = Raphael(0, 0, 1024, 728);
+    var paper;
 	
-	// Draw a light background so we know the bounding box
-	paper
-        .rect(0, 0, 1024, 728)
-        .attr('fill', '#aaa')
-		.attr('fill-opacity', '0.7');
 	// Variable use to store a reference to the active 'free transform' (ft)
 	var ft;
 	
 	// Array used to store the history of modifications
-	var history = Array();
+	var history;
 	
 	// Rectangle that we will pass into the free transform (in our case an image)
 	var rect;
+	
+	var userImage;
+	
+	init();
+	
+	function init() 
+	{
+		paper = Raphael(0, 0, 1024, 728);
+		// Draw a light background so we know the bounding box
+		
+		paper
+        	.rect(0, 0, 1024, 728)
+        	.attr('fill', '#aaa')
+			.attr('fill-opacity', '0.7');
+			
+			history = Array();
+	}
+	
+	function clearPaper() 
+	{
+		
+		if(ft) {
+			ft.unplug();
+		}
+		
+		if(paper){
+			paper.clear();
+		}
+		
+		history = new Array();
+			
+	}
+	
+	function loadImage(url)
+	{
+		userImage = new Image();
+		userImage.src = url;
+		userImage.onLoad = setupFrame();
+	}
 	
 	// Add freeTransform with options and callback
 	function addTransform() {
@@ -91,9 +125,8 @@ Talking Points:
 	}
 	
 	// Load our image assets, first user image then ellipse then photo frame
-	userImage = new Image();
-	userImage.src = "portrait.jpg";
-	userImage.onload = function() {
+	
+	 function setupFrame() {
 		// Add the user image to the paper
     	rect = paper.image(userImage.src, 325, 225, 320, 240);
 		
